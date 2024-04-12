@@ -33,7 +33,12 @@ export default class TodoController {
         element = document.getElementById('submitTodo');
         // Are we doing a update or create
         if(element)
-            element.addEventListener('submit', this.onSubmitTodo);      
+            element.addEventListener('submit', this.onSubmitTodo); 
+            if (signupLink) {
+                signupLink.addEventListener('click', () => {
+                    router.load('signup');
+                });
+            }     
     }
 
     onSubmitTodo = async (event) => {

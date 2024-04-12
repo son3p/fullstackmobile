@@ -44,7 +44,11 @@ async function setupApplication() {
         // The search string in inside the home page so we can register only after the body content is injected
         window.searchString.oninput = homeController.findByName;
     });
-
+    router.addRoute('signup', () => {
+        console.log('signup route');
+        const signupTemplate = Handlebars.compile(signupHbs);
+        document.body.innerHTML = signupTemplate();
+    });
    
     router.addRoute('todos/:id/read', (todoId) => {
         console.log('todo details route ');
