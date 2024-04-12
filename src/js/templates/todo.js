@@ -1,9 +1,12 @@
+import './css/todo.css'
+
 const todoHbs = `
 <header class="navbar navbar-light bg-light navbar-expand">
     <a class="nav-link" href="#">
-        <h1 class="btn btn-primary bi-chevron-left">&nbsp;Back</h1>
+        <h1 class="btn btn-dark border border-2 border-dark bi-chevron-left">&nbsp;Back</h1>
     </a>
-    <h2 class="navbar-text">&nbsp;&nbsp Todo details</h1>
+    <h2 class="navbar-text fw-bold">&nbsp;&nbsp Todo details</h2>
+
 </header>
 <div class="content">
     <div class="card">
@@ -18,14 +21,15 @@ const todoHbs = `
                 {{ title }}
             </h6>
         </div>
-        <ul class="list-group list-group-flush d-flex ">
+    </div>
+        <ul class="list-group list-group-flush d-flex mt-4 ">
 
-            <a href='#todos/{{ id }}/edit' class="btn btn-primary" role="button">Edit</a>
+            <a href='#todos/{{ id }}/edit' class="btn btn-dark border border-2 border-dark custom-btn-1" role="button">Edit</a>
             </p>
-            <a href='#todos/{{ id }}/delete' class="btn btn-primary" role="button">Delete</a>
+            <a href='#todos/{{ id }}/delete' class="btn btn-dark border border-2 border-dark custom-btn-2" role="button">Delete</a>
                 
         </ul>
-    </div>
+   
 </div>
 `
 export {todoHbs};
