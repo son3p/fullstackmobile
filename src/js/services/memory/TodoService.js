@@ -1,13 +1,12 @@
-"use strict";
+'use strict';
 import axios from "axios";
-const USER_API_URL = 'http://localhost:3000/';
+import AuthService from "./AuthService";
+const USER_API_URL = 'https://fullstackrestapi.azurewebsites.net/';
 
 class TodoService {
     async fetchTodosForUser(userId) {
         try {
-            // Assuming you have an endpoint to fetch todos for a specific user, 
-            // you should pass the userId as a parameter to the API call
-            return await axios.get(USER_API_URL + `api/todos?userId=${userId}`, { headers: AuthService.authHeader() });
+            return await axios.get(`${USER_API_URL}api/todos?userId=${userId}`, { headers: AuthService.authHeader() });
         } catch (error) {
             console.error("Error fetching todos for user:", error);
             throw error;
@@ -16,7 +15,6 @@ class TodoService {
     
     async addTodosForUser(todo) {
         try {
-            // Assuming your API endpoint for adding todos expects a todo object in the request body
             return await axios.post(USER_API_URL + 'api/todos', todo, { headers: AuthService.authHeader() });
         } catch (error) {
             console.error("Error adding todo for user:", error);
@@ -33,7 +31,7 @@ class TodoService {
         }
     }
     
-    findByName = (searchKey) => {
+    findByName(searchKey) {
         let results = this.todos.filter(function (element) {
             let fullName = element.todoTitle + " " + element.todoText;
             return fullName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
@@ -41,7 +39,7 @@ class TodoService {
         return results;
     }
 
-    persist = async (todo) => {
+    async persist(todo) {
         if (todo != null) {
             if (todo.id == null || parseInt(todo.id) < 1) {
                 todo.id = TodoService.getNextId();
@@ -61,7 +59,7 @@ class TodoService {
         return false;
     }
 
-    discard = async (todo) => {
+    async discard(todo) {
         if (todo != null && todo.id != null && parseInt(todo.id) > 0) {
             let filteredTodos = this.todos.filter((item) => item.id != todo.id);
             this.todos = filteredTodos;

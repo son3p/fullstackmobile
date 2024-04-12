@@ -13,10 +13,15 @@ async function setupApplication() {
     console.log('windows loaded - setting up application');
     
     /* ---------------------------------- Variables ---------------------------------- */
-    let service = new TodoService() // moved the service here so it will not be created unnecessarily
-    await service.initialize()
-    
-    console.log("Todo service initialized");
+    let service = new TodoService(); // Instantiate TodoService
+    try {
+        await service.initialize(); // Await the initialization
+        console.log("Todo service initialized");
+    } catch (error) {
+        console.error("Error initializing TodoService:", error);
+        // Handle initialization error
+        return;
+    }
 
     /* ------------------- Set up the handlebars helper ------------------------------ */
     // Here we register a simple string comparator ie the if equal
