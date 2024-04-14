@@ -2,26 +2,21 @@
 import TodoService from './services/memory/TodoService.js';
 import HomeController from './controllers/HomeController.js';
 import TodoController from './controllers/TodoController.js';
-
 import Handlebars from 'handlebars'
-
 import router from './router.js'
- 
-/* ---------------------------------- File local Functions ---------------------------------- */
 
-async function setupApplication() {
+/* ---------------------------------- File local Functions ---------------------------------- */
+// To be able to use await we have to use async, and it seems that we can not use the lambd function for it in this case...
+// window.onload likes to have it as a async function, to be able to connect to the Capacitor preferences... might be that when it uses the native stuff...
+async function setupApplication () {
     console.log('windows loaded - setting up application');
     
     /* ---------------------------------- Variables ---------------------------------- */
-    let service = new TodoService(); // Instantiate TodoService
-    try {
-        await service.initialize(); // Await the initialization
-        console.log("Todo service initialized");
-    } catch (error) {
-        console.error("Error initializing TodoService:", error);
-        // Handle initialization error
-        return;
-    }
+    let service = new TodoService() // moved the service here so it will not be created unnecessarily
+    // here we need the await 
+    await service.initialize()
+    
+    console.log("Todo service initialized");
 
     /* ------------------- Set up the handlebars helper ------------------------------ */
     // Here we register a simple string comparator ie the if equal
@@ -49,11 +44,7 @@ async function setupApplication() {
         // The search string in inside the home page so we can register only after the body content is injected
         window.searchString.oninput = homeController.findByName;
     });
-    router.addRoute('signup', () => {
-        console.log('signup route');
-        const signupTemplate = Handlebars.compile(signupHbs);
-        document.body.innerHTML = signupTemplate();
-    });
+
    
     router.addRoute('todos/:id/read', (todoId) => {
         console.log('todo details route ');
@@ -61,6 +52,22 @@ async function setupApplication() {
         window.content.innerHTML = todoController.renderReadById(todoId);
         console.log("content html assigned for read");
     });
+
+    router.addRoute('register', () => {
+        console.log('Register route');
+        const todoController = new TodoController(service);
+        window.content.innerHTML = todoController.signupCompiled()
+        todoController.setupEventHandlers();
+        console.log("register assigned")
+    })
+
+    router.addRoute('login', () => {
+        console.log('Login route');
+        const todoController = new TodoController(service);
+        window.content.innerHTML = todoController.signinCompiled()
+        todoController.setupEventHandlers();
+        console.log("Login assigned")
+    })
 
     router.addRoute('todos/:id/edit', (todoId) => {
         console.log('todo update route ');
@@ -82,7 +89,7 @@ async function setupApplication() {
     });
     
     router.addRoute('todos/:id/delete', (todoId) => {
-        console.log('todo update delete ');
+        console.log('employee update delete ');
         const todoController = new TodoController(service);
         window.content.innerHTML = todoController.renderDestroyById(todoId);
         // We need to setup eventhandlers AFTER the elements exist in the DOM tree

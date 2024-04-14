@@ -1,72 +1,93 @@
-'use strict';
-import axios from "axios";
-import AuthService from "./AuthService";
-const USER_API_URL = 'https://fullstackrestapi.azurewebsites.net/';
+"use strict";
 
-class TodoService {
-    async fetchTodosForUser(userId) {
-        try {
-            return await axios.get(`${USER_API_URL}api/todos?userId=${userId}`, { headers: AuthService.authHeader() });
-        } catch (error) {
-            console.error("Error fetching todos for user:", error);
-            throw error;
-        }
+export default class TodoService {
+    constructor() {
+        this.todos = [
+            { "id": 1, "firstName": "James", "lastName": "King", "managerId": 0, "managerName": "", "title": "President and CEO", "department": "Corporate", "cellPhone": "617-000-0001", "officePhone": "781-000-0001", "email": "jking@fakemail.com", "city": "Boston, MA", "pic": "James_King.jpg", "twitterId": "@fakejking", "blog": "http://coenraets.org" },
+            { "id": 2, "firstName": "Julie", "lastName": "Taylor", "managerId": 1, "managerName": "James King", "title": "VP of Marketing", "department": "Marketing", "cellPhone": "617-000-0002", "officePhone": "781-000-0002", "email": "jtaylor@fakemail.com", "city": "Boston, MA", "pic": "Julie_Taylor.jpg", "twitterId": "@fakejtaylor", "blog": "http://coenraets.org" },
+            { "id": 3, "firstName": "Eugene", "lastName": "Lee", "managerId": 1, "managerName": "James King", "title": "CFO", "department": "Accounting", "cellPhone": "617-000-0003", "officePhone": "781-000-0003", "email": "elee@fakemail.com", "city": "Boston, MA", "pic": "Eugene_Lee.jpg", "twitterId": "@fakeelee", "blog": "http://coenraets.org" },
+            { "id": 4, "firstName": "John", "lastName": "Williams", "managerId": 1, "managerName": "James King", "title": "VP of Engineering", "department": "Engineering", "cellPhone": "617-000-0004", "officePhone": "781-000-0004", "email": "jwilliams@fakemail.com", "city": "Boston, MA", "pic": "John_Williams.jpg", "twitterId": "@fakejwilliams", "blog": "http://coenraets.org" },
+            { "id": 5, "firstName": "Ray", "lastName": "Moore", "managerId": 1, "managerName": "James King", "title": "VP of Sales", "department": "Sales", "cellPhone": "617-000-0005", "officePhone": "781-000-0005", "email": "rmoore@fakemail.com", "city": "Boston, MA", "pic": "Ray_Moore.jpg", "twitterId": "@fakermoore", "blog": "http://coenraets.org" },
+            { "id": 6, "firstName": "Paul", "lastName": "Jones", "managerId": 4, "managerName": "John Williams", "title": "QA Manager", "department": "Engineering", "cellPhone": "617-000-0006", "officePhone": "781-000-0006", "email": "pjones@fakemail.com", "city": "Boston, MA", "pic": "Paul_Jones.jpg", "twitterId": "@fakepjones", "blog": "http://coenraets.org" },
+            { "id": 7, "firstName": "Paula", "lastName": "Gates", "managerId": 4, "managerName": "John Williams", "title": "Software Architect", "department": "Engineering", "cellPhone": "617-000-0007", "officePhone": "781-000-0007", "email": "pgates@fakemail.com", "city": "Boston, MA", "pic": "Paula_Gates.jpg", "twitterId": "@fakepgates", "blog": "http://coenraets.org" },
+            { "id": 8, "firstName": "Lisa", "lastName": "Wong", "managerId": 2, "managerName": "Julie Taylor", "title": "Marketing Manager", "department": "Marketing", "cellPhone": "617-000-0008", "officePhone": "781-000-0008", "email": "lwong@fakemail.com", "city": "Boston, MA", "pic": "Lisa_Wong.jpg", "twitterId": "@fakelwong", "blog": "http://coenraets.org" },
+            { "id": 9, "firstName": "Gary", "lastName": "Donovan", "managerId": 2, "managerName": "Julie Taylor", "title": "Marketing Manager", "department": "Marketing", "cellPhone": "617-000-0009", "officePhone": "781-000-0009", "email": "gdonovan@fakemail.com", "city": "Boston, MA", "pic": "Gary_Donovan.jpg", "twitterId": "@fakegdonovan", "blog": "http://coenraets.org" },
+            { "id": 10, "firstName": "Kathleen", "lastName": "Byrne", "managerId": 5, "managerName": "Ray Moore", "title": "Sales Representative", "department": "Sales", "cellPhone": "617-000-0010", "officePhone": "781-000-0010", "email": "kbyrne@fakemail.com", "city": "Boston, MA", "pic": "Kathleen_Byrne.jpg", "twitterId": "@fakekbyrne", "blog": "http://coenraets.org" },
+            { "id": 11, "firstName": "Amy", "lastName": "Jones", "managerId": 5, "managerName": "Ray Moore", "title": "Sales Representative", "department": "Sales", "cellPhone": "617-000-0011", "officePhone": "781-000-0011", "email": "ajones@fakemail.com", "city": "Boston, MA", "pic": "Amy_Jones.jpg", "twitterId": "@fakeajones", "blog": "http://coenraets.org" },
+            { "id": 12, "firstName": "Steven", "lastName": "Wells", "managerId": 4, "managerName": "John Williams", "title": "Software Architect", "department": "Engineering", "cellPhone": "617-000-0012", "officePhone": "781-000-0012", "email": "swells@fakemail.com", "city": "Boston, MA", "pic": "Steven_Wells.jpg", "twitterId": "@fakeswells", "blog": "http://coenraets.org" }
+        ];
+        // Hard coded due to the fact that this service is a list in RAM each time when created! Do not work in a real storage situation, use the db for that!
+        TodoService.lastUsedIdValue = 12;
     }
-    
-    async addTodosForUser(todo) {
-        try {
-            return await axios.post(USER_API_URL + 'api/todos', todo, { headers: AuthService.authHeader() });
-        } catch (error) {
-            console.error("Error adding todo for user:", error);
-            throw error;
-        }
+
+    static lastUsedIdValue = 0;
+
+    static getNextId = () => {
+        TodoService.lastUsedIdValue = TodoService.lastUsedIdValue + 1;
+        return TodoService.lastUsedIdValue;
     }
-    
-    async changeTodoForUser(todoId, todo) {
-        try {
-            return await axios.put(USER_API_URL + `api/todos/${todoId}`, todo, { headers: AuthService.authHeader() });
-        } catch (error) {
-            console.error("Error updating todo for user:", error);
-            throw error;
-        }
+
+    initialize = async () => {
+        // No Initialization required
     }
-    
-    findByName(searchKey) {
+
+    findById = (id) => {
+        let todo = null;
+        let l = this.todos.length;
+        for (let i = 0; i < l; i++) {
+            if (this.todos[i].id === id) {
+                todo = this.todos[i];
+                break;
+            }
+        }
+
+        return todo;
+    }
+
+    findByName = (searchKey) => {
         let results = this.todos.filter(function (element) {
-            let fullName = element.todoTitle + " " + element.todoText;
+            let fullName = element.firstName + " " + element.lastName;
             return fullName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
         });
         return results;
+
     }
 
-    async persist(todo) {
+    persist = async (todo) => {
         if (todo != null) {
             if (todo.id == null || parseInt(todo.id) < 1) {
+                // we have a new one
                 todo.id = TodoService.getNextId();
                 this.todos.push(todo);
             } else {
+                // we already have the one in the cache
                 const todoIndex = this.todos.findIndex(e => e.id == todo.id);
+
+                //sanity check
                 if (todoIndex >= 0) {
                     let oldTodo = this.todos[todoIndex];
                     const mergedTodo = { ...oldTodo, ...todo };
                     this.todos[todoIndex] = mergedTodo;
-                } else {
-                    return false;
                 }
+                else
+                    return false;
             }
+
             return true;
         }
+
         return false;
     }
 
-    async discard(todo) {
+    // Discard - throw away, remove from consideration
+    discard = async (todo) => {
         if (todo != null && todo.id != null && parseInt(todo.id) > 0) {
+            // we have one to remove, get all others
             let filteredTodos = this.todos.filter((item) => item.id != todo.id);
             this.todos = filteredTodos;
             return true;
         }
+
         return false;
     }
 }
-
-export default new TodoService();

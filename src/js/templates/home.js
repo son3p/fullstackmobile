@@ -13,10 +13,10 @@ const homeHbs = `
             <a class="nav-link bi bi-list-task" href="/todos">Tasks</a>
           </li>
           <li class="nav-item m-2">
-            <a class="nav-link bi-person-plus-fill" href="/register">Register</a>
+          <a class="nav-link" href="#register">Register users</a>
           </li>
           <li class="nav-item m-2" >
-            <a class="nav-link bi-box-arrow-in-right" href="/login">Login</a>
+          <a class="nav-link" href="#login">Login</a>
           </li>
         </ul>
       </div>       

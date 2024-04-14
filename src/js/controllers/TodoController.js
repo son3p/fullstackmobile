@@ -1,11 +1,16 @@
 import Handlebars from 'handlebars'
 import { Dialog } from '@capacitor/dialog';
 import router from'../router.js'
+import AuthService from '../services/storage/AuthService.js';
 
 // Handlebars template text in files. Remember we are not in a server so can not use filesystem!
 // We select what properties we like to have from the object.
+
 import {todoHbs} from '../templates/todo.js'
 import {todoFormHbs} from '../templates/todoForm.js'
+import { signupHbs } from '../templates/signup.js';
+import { signinHbs } from '../templates/signin.js';
+
 
 export default class TodoController {
     constructor(todoService) {
@@ -19,6 +24,9 @@ export default class TodoController {
 
         // To modify the todo
         this.todoFormCompiled = Handlebars.compile(todoFormHbs); 
+        // signinup
+        this.signupCompiled = Handlebars.compile(signupHbs) 
+        this.signinCompiled = Handlebars.compile(signinHbs)
 
     }
 
@@ -28,35 +36,85 @@ export default class TodoController {
 
     setupEventHandlers = ()=> {
         let element = null;
-
-        // Only available if we have rendered the todoForm
+        let signupElement = null;
+        let signinElement = null;
+        signinElement = document.getElementById('signinTodo')
+        if(signinElement)
+            signinElement.addEventListener('submit', this.onSubmitSignin)
+    
+        signupElement = document.getElementById('signupTodo');
+        if (signupElement)
+            signupElement.addEventListener('submit', this.onSubmitSignup);
+    
         element = document.getElementById('submitTodo');
-        // Are we doing a update or create
-        if(element)
-            element.addEventListener('submit', this.onSubmitTodo); 
-            if (signupLink) {
-                signupLink.addEventListener('click', () => {
-                    router.load('signup');
-                });
-            }     
+        if (element)
+            element.addEventListener('submit', this.onSubmitTodo);
     }
+
+    onSubmitSignin = async (event) => {
+        event.preventDefault();
+        // Extract form data
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            // Perform authentication request
+            const result = await AuthService.login(data);
+            Dialog.alert({
+                title: 'Success',
+                message: 'Login succesful',
+            });
+            // Display a success message or handle the response as needed
+
+            // Navigate to the desired page within your application
+            const url = "#"; // Navigate to the home page or any other desired page
+            router.load(url);
+
+            // Reset the form if needed
+            event.target.reset();
+        } catch (error) {
+            console.error(error);
+            // Handle errors if authentication fails
+        }
+    };
+
+onSubmitSignup = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target); // Get form data
+    const data = Object.fromEntries(formData.entries()); // Convert FormData to plain object
+    console.log('Form data:', data);
+
+    try {
+        const result = await AuthService.register(data);
+        Dialog.alert({
+            title: 'Success',
+            message: 'Register succesful',
+        });
+        const url = "#";
+
+        router.load(url);
+        event.target.reset(); // Reset the form
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
     onSubmitTodo = async (event) => {
 
         event.preventDefault();
         event.stopImmediatePropagation();
 
-        // The form sending the data
+        
         const form = event.target;
-        //FormData is a helper to get key:value pairs 
-        // ALL ARE STRINGS SO WE NEED TO CONVERT NUMBER STRINGS to numbers
+        
         const formData = new FormData(form);
         
-        // Convert from DTO to object.
+        
         const formPersonObj = Object.fromEntries(formData.entries());
         formPersonObj.id = parseInt(formPersonObj.id);
         
-        // Are we doing a create/update or destroy
+       
         if(this.mode!='Destroy') {
             const result= await this.todoService.persist(formPersonObj);
             if(result == true) {
@@ -65,14 +123,14 @@ export default class TodoController {
                 
                 if(this.selectedTodo!=null) {
                     
-                    // If we are here, we are on the 'bright' side!
+                    
                     await Dialog.alert({
                         title: 'Save',
                         message: 'todo saved',
                     });
         
                     const url= "#todos/"+ this.selectedTodo.id + "/read";
-                    // Page based switching on url
+                    
                     router.load(url);
 
                 } else {
@@ -83,18 +141,16 @@ export default class TodoController {
                 }
             }
         } else {
+            
             const result = await this.todoService.discard(formPersonObj);
             
             if(result==true) {
-                
-                // If we are here, we are on the 'bright' side!
                 await Dialog.alert({
                     title: 'Discard',
                     message: 'todo discarded',
                 });
       
                 const url= "#";
-                // Page based switching on url
                 router.load(url);
 
             } else {
@@ -104,14 +160,11 @@ export default class TodoController {
                 });
             }
         }
-
-        // We return false so the form do not try to send to noexisting server, even if we have the preventors!
         return false;
     }
 
     render = () => {
-        // We should check if there is a selectedTodo and return an error if not!
-        return this.todoCompiled(this.selectedTodo) // Here we give the context to use to the handlebars compiled function
+        return this.todoCompiled(this.selectedTodo) 
     }
     
     renderForm = () => {
@@ -130,16 +183,16 @@ export default class TodoController {
         this.selectedTodo = todo;
         this.mode = "Update";
         
-        return this.renderForm(); // Handlebars will create the callback name submitTodoEdit
+        return this.renderForm(); 
     }
 
     renderCreate = () => {
-        // New default todo data
-        const newTodo = {"id": 0, "todoTitle": "", "todoText": "", "managerId": 0, "managerName": "", "title": "", "department": "", "cellPhone": "", "officePhone": "", "email": "", "city": "", "pic": "James_King.jpg", "twitterId": "", "blog": ""};
+        
+        const newTodo = {"id": 0, "firstName": "", "lastName": "", "managerId": 0, "managerName": "", "title": "", "department": "", "cellPhone": "", "officePhone": "", "email": "", "city": "", "pic": "James_King.jpg", "twitterId": "", "blog": ""};
         this.selectedTodo = newTodo;
         this.mode = "Create";
         
-        return this.renderForm(); // Handlebars will create the callback name submitTodoCreate
+        return this.renderForm(); 
     }
 
     renderDestroyById = (todoId) => {
@@ -147,6 +200,14 @@ export default class TodoController {
         this.selectedTodo = todo;
         this.mode = "Destroy";
         
-        return this.renderForm(); // Handlebars will create the callback name submitTodoEdit
+        return this.renderForm(); 
+    }
+
+    renderRegister = () => {
+        return this.signupCompiled()
+    }
+
+    renderLogin = () => {
+        return this.signinCompiled()
     }
 }
