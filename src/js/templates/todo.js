@@ -13,12 +13,12 @@ const todoHbs = `
         
         <div class="card-body">
             <h5 class="card-title">
-                {{ todoTitle }} 
+                {{ todotask }} 
                 </p> 
-                {{ todoText }}
+                {{ todobody }}
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">
-                {{ title }}
+                {{ task }}
             </h6>
         </div>
     </div>

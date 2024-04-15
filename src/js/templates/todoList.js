@@ -6,11 +6,11 @@ const todoListHbs = `
             <div class="card">
                 <div class="card-content">
                     <div class="card-header">
-                        <h2 class="todo-title">{{todoTitle}}</h2>
-                        <p class="title">{{title}}</p>
+                        <h2 class="todo-title">{{task}}</h2>
+                        <p class="title">{{task}}</p>
                     </div>
                     <div class="card-body">
-                        <p class="todo-text">{{todoText}}</p>
+                        <p class="todo-text">{{body}}</p>
                     </div>
                 </div>
             </div>

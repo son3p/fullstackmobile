@@ -19,6 +19,7 @@
     "@capacitor/dialog": "^5.0.7",
     "@capacitor/splash-screen": "latest",
     "axios": "^1.6.8",
+    "bootstrap": "^5.3.3",
     "handlebars": "^4.7.8"
   },
   "devDependencies": {

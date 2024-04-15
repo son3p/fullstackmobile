@@ -12,15 +12,15 @@ const todoFormHbs = `
     <input type="hidden" class="form-control" id="id" name="pic" value={{ todo.pic }}>
     <div class="form-group ">
         <label for="todoTitle">Todo Title</label>
-        <input type="text" class="form-control" id="todoTitle" name="todoTitle" value = "{{todo.todoTitle}}" placeholder="Enter title" {{#if_eq mode 'Destroy'}}  readonly {{/if_eq}}>
+        <input type="text" class="form-control" id="todoTitle" name="todoTitle" value = "{{todo.task}}" placeholder="Enter title" {{#if_eq mode 'Destroy'}}  readonly {{/if_eq}}>
     </div>
     <div class="form-group">
         <label for="todoText">Todo text</label>
-        <input type="text" class="form-control" id="todoText" name="todoText" value = "{{todo.todoText}}" placeholder="Enter todo" {{#if_eq mode 'Destroy'}}  readonly {{/if_eq}}/>
+        <input type="text" class="form-control" id="todoText" name="todoText" value = "{{todo.body}}" placeholder="Enter todo" {{#if_eq mode 'Destroy'}}  readonly {{/if_eq}}/>
     </div>
     <div class="form-group">
-        <label for="title">Category</label>
-        <input type="text" class="form-control" id="title" name="title" value = "{{todo.title}}" placeholder="Enter category" {{#if_eq mode 'Destroy'}}  readonly {{/if_eq}}/>
+        <label for="title">Enter Estimated Time</label>
+        <input type="text" class="form-control" id="title" name="title" value = "{{todo.estimated_time}}" placeholder="Enter estimated time" {{#if_eq mode 'Destroy'}}  readonly {{/if_eq}}/>
     </div>
     <div class="form-group m-4">
     {{#if_eq mode 'Destroy'}}  

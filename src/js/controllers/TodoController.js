@@ -171,14 +171,14 @@ onSubmitSignup = async (event) => {
         return this.todoFormCompiled({ todo: this.selectedTodo, mode: this.mode});
     }
 
-    renderReadById = (todoId) => {
+    renderReadById = async (todoId) => {
         const todo = this.todoService.findById(parseInt(todoId));
         this.selectedTodo = todo;
     
         return this.render();
     }
 
-    renderUpdateById = (todoId) => {
+    renderUpdateById = async (todoId) => {
         const todo = this.todoService.findById(parseInt(todoId));
         this.selectedTodo = todo;
         this.mode = "Update";
@@ -186,16 +186,21 @@ onSubmitSignup = async (event) => {
         return this.renderForm(); 
     }
 
-    renderCreate = () => {
-        
-        const newTodo = {"id": 0, "firstName": "", "lastName": "", "managerId": 0, "managerName": "", "title": "", "department": "", "cellPhone": "", "officePhone": "", "email": "", "city": "", "pic": "James_King.jpg", "twitterId": "", "blog": ""};
+    renderCreate = async () => {
+        const newTodo = {
+            "task": "", 
+            "body": "", // main text
+            "estimated_time": 0, 
+            "created_at": new Date().toISOString(), // not sure if works
+            "belongsTo": ""
+        };
         this.selectedTodo = newTodo;
         this.mode = "Create";
-        
-        return this.renderForm(); 
+        return await this.todoFormCompiled({ todo: this.selectedTodo, mode: this.mode });
+       // return this.renderForm();
     }
 
-    renderDestroyById = (todoId) => {
+    renderDestroyById = async (todoId) => {
         const todo = this.todoService.findById(parseInt(todoId));
         this.selectedTodo = todo;
         this.mode = "Destroy";
@@ -203,11 +208,11 @@ onSubmitSignup = async (event) => {
         return this.renderForm(); 
     }
 
-    renderRegister = () => {
+    renderRegister = async () => {
         return this.signupCompiled()
     }
 
-    renderLogin = () => {
+    renderLogin = async () => {
         return this.signinCompiled()
     }
 }

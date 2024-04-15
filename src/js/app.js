@@ -5,6 +5,13 @@ import TodoController from './controllers/TodoController.js';
 import Handlebars from 'handlebars'
 import router from './router.js'
 
+// Bootstrap CSS testing
+// import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+// import "bootstrap/dist/js/bootstrap.bundle.min";
+// Bootstrap Icons
+// import 'bootstrap-icons/font/bootstrap-icons.css';
+
 /* ---------------------------------- File local Functions ---------------------------------- */
 // To be able to use await we have to use async, and it seems that we can not use the lambd function for it in this case...
 // window.onload likes to have it as a async function, to be able to connect to the Capacitor preferences... might be that when it uses the native stuff...
