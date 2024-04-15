@@ -1,11 +1,5 @@
 {
-  "appId": "com.novia.fullstack",
-  "appName": "TODOapp",
-  "bundledWebRuntime": false,
-  "webDir": "dist",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  }
+  "appId": "com.hmyllari.app",
+  "appName": "fullstackmobileapp",
+  "webDir": "dist"
 }
