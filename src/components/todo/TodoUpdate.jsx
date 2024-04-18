@@ -13,7 +13,7 @@ import UserService from '../../services/UserService.js'
 import schema from './todoValidationSchema.js'
 
 const TodoUpdate = () => {
-    const {todoId} = useParams()
+    const { todoId } = useParams()
     const [responseMessage, setResponseMessage] = useState();
 
     // The 'location' of the the link, gives us an possibility to get some data associated with the link we came from to this component
@@ -69,43 +69,50 @@ const TodoUpdate = () => {
 
     return (
         <>
-            <div className="col-md-12">
-                <div className="card card-container card-9 fw-bold">
-                    <h1>Edit todo</h1>
-                    <form onSubmit={handleSubmit(doUpdate)}>
-                        <div className="form-group">
-                            <label htmlFor="task">Task</label>
-                            <input type="text" {...register("task")} defaultValue = {currentTodo.task} className="form-control bg-light border border-dark"/>
-                            {errors?.task && <label className="error-feedback">{errors.task.message}</label>}
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-7 col-12">
+                        <div className="card rounded border border-dark  ">
+                            <div className="card-body">
+                                <h1 className='text-center'> Edit this todo</h1>
+
+                                <form onSubmit={handleSubmit(doUpdate)}>
+                                    <div className="form-group">
+                                        <label htmlFor="task">Task</label>
+                                        <input type="text" {...register("task")} defaultValue={currentTodo.task} className="form-control bg-light border border-dark" />
+                                        {errors?.task && <label className="error-feedback">{errors.task.message}</label>}
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="body">Body</label>
+                                        <input type="text" {...register("body")} defaultValue={currentTodo.body} className="form-control bg-light border border-dark" />
+                                        {errors?.body && <label className="error-feedback">{errors.body.message}</label>}
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="estimated_time">Estimated time</label>
+                                        <input type="number" {...register("estimated_time")} defaultValue={currentTodo.estimated_time} className="form-control bg-light border border-dark" />
+                                        {errors?.estimated_time && <label className="error-feedback">{errors.estimated_time.message}</label>}
+                                    </div>
+                                    <p></p>
+                                    <div className="form-group d-flex justify-content-between">
+
+                                        <button onClick={handleCancel} className="btn btn-dark border border-2 border-dark button-10 btn-block">
+                                            Cancel
+                                        </button>
+                                        <button className="btn btn-dark border border-2 border-dark button-9 btn-block" >
+                                            Update
+                                        </button>
+
+                                    </div>
+                                </form>
+                                <p></p>
+                                {responseMessage && (
+                                    <div className="alert alert-success" >
+                                        {responseMessage}
+                                    </div>)
+                                }
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="body">Body</label>
-                            <input type="text" {...register("body")} defaultValue = {currentTodo.body} className="form-control bg-light border border-dark"/>
-                            {errors?.body && <label className="error-feedback">{errors.body.message}</label>}
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="estimated_time">Estimated time</label>
-                            <input type="number" {...register("estimated_time")} defaultValue = {currentTodo.estimated_time} className="form-control bg-light border border-dark"/>
-                            {errors?.estimated_time && <label className="error-feedback">{errors.estimated_time.message}</label>}
-                        </div>
-                        <p></p>
-                        <div className="form-group d-flex justify-content-between">
-                           
-                            <button onClick={handleCancel} className="btn btn-dark border border-2 border-dark button-10 btn-block">
-                                Cancel
-                            </button>
-                            <button className="btn btn-dark border border-2 border-dark button-9 btn-block" >
-                                Update
-                            </button>
-                          
-                        </div>
-                    </form>
-                    <p></p>
-                    {responseMessage && (
-                        <div className="alert alert-success" >
-                            {responseMessage}
-                        </div>)
-                    }
+                    </div>
                 </div>
             </div>
         </>

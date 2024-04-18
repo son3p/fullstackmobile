@@ -2,8 +2,8 @@ import './css/Header.css';
 
 export default function Header() {
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark ">
-      <div className="container-fluid justify-content-center">
+    <nav className="navbar navbar-expand-lg  navbar-dark ">
+      <div className="container-fluid ">
         <a className="navbar-brand" href="#">To Do List Application</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
           <span className="navbar-toggler-icon"></span>
