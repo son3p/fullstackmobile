@@ -38,11 +38,11 @@ const Todos = () => {
                 <h1 >Tasks</h1>
                 <hr />
             </div>
-            <div className="container mt-5 mb-5">
-                <h1 className="mt-3 mb-3 fw-bolder"> User&apos;s Todos </h1>
+            <div className="container mt-2 mb-5">
+                <h2 className="mt-3 mb-3 fw-bolder"> User&apos;s Todos </h2>
 
                 <a className="btn btn-dark border border-2 border-dark button-3 bi-journal-plus" href="/todos/create">Create new todo</a>
-                <button type="button" className="btn btn-dark border border-2 border-dark button-4 ms-5" onClick={getAllTodos}>Refresh site</button>
+                <button type="button" className="btn btn-dark border border-2 border-dark button-4 ms-4" onClick={getAllTodos}>Refresh </button>
                 {error && <p className="text-danger">{error}</p>}
                 <div className="my-4">
                     <Table caption={''} fields={fields} rows={todos} resourceName='/todos'></Table>
