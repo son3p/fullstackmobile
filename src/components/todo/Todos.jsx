@@ -28,9 +28,7 @@ const Todos = () => {
     const fields = [
         { name: 'id', label: 'Id' },
         { name: 'task', label: 'Task' },
-        { name: 'body', label: 'Body' },
-        { name: 'estimated_time', label: 'Estimated_time' },
-        { name: 'createdAt', label: 'Creation time ' }];
+        { name: 'createdAt', label: 'Creation time ' },];
 
     return (
         <>
@@ -42,7 +40,7 @@ const Todos = () => {
                 <h2 className="mt-3 mb-3 fw-bolder"> User&apos;s Todos </h2>
 
                 <a className="btn btn-dark border border-2 border-dark button-3 bi-journal-plus" href="/todos/create">Create new todo</a>
-                <button type="button" className="btn btn-dark border border-2 border-dark button-4 ms-4" onClick={getAllTodos}>Refresh </button>
+                <button type="button" className="btn btn-dark border border-2 border-dark button-4 mt-2 d-block bi bi-arrow-clockwise" onClick={getAllTodos}>Refresh site</button>
                 {error && <p className="text-danger">{error}</p>}
                 <div className="my-4">
                     <Table caption={''} fields={fields} rows={todos} resourceName='/todos'></Table>
