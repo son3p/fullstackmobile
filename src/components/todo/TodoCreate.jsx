@@ -79,9 +79,15 @@ const TodoCreate = () => {
                                     {errors?.body && <label className="error-feedback" >{errors.body.message}</label>}
                                 
                                
-                                    <label htmlFor="estimated_time" className="form-label">Estimated_time</label>
+                                    <label htmlFor="estimated_time" className="form-label">Estimated time</label>
                                     <input type="number" {...register("estimated_time")} className="form-control bg-light border border-dark" />
                                     {errors?.estimated_time && <label className="error-feedback">{errors.estimated_time.message}</label>}
+
+                                <div className="form-group">
+                                     <label htmlFor="priority">Priority</label>
+                                     <input type="text" {...register("priority")}  className="form-control bg-light border border-dark" />
+                                     {errors?.priority && <label className="error-feedback">{errors.priority.message}</label>}
+                                </div>
                                 
                                 <p></p>
                                 <div className="form-group d-flex justify-content-between">
