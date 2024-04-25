@@ -1,102 +1,109 @@
 label {
-    display: block;
-    margin-top: 10px;
-  }
-  /* login och register*/
- .card-5{
-  background-color: rgb(214, 207, 207);
-  font-family: Courier New;
-  color: rgb(6, 6, 6);
- }
- .button-1{
-  background-color: rgb(229, 240, 242);
-  color: black;
- } 
- .card-6{
-  background-color: rgb(214, 207, 207);
-  font-family: Courier New;
-  color: rgb(6, 6, 6);
- }
- .button-2{
-  background-color: rgb(229, 240, 242);
-  color: black;
- } 
- .card-7{
-  font-family: Courier New;
- 
- }
-  .profile-img-card {
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 10px;
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-  }
-  
-  .error-feedback {
-    
-    color: rgb(232, 13, 13);
-  }
-  /*INTE TABELLEN utan todos.jsx*/
-  .container{
-    font-family: Courier New;
-  }
-  .button-3{
-    background-color: rgb(68, 168, 179);;
-    color: rgb(253, 251, 251);
-   } 
-   .button-4{
-    background-color: rgb(59, 118, 222);;
-    color: rgb(253, 251, 251);
-  } 
-/*CREATE TODO*/
+  display: block;
+  margin-top: 10px;
+}
+/* login och register*/
+.card-5{
+background-color: rgb(214, 207, 207);
+font-family: Courier New;
+color: rgb(6, 6, 6);
+}
+.button-1{
+background-color: rgb(229, 240, 242);
+color: black;
+} 
+.card-6{
+background-color: rgb(214, 207, 207);
+font-family: Courier New;
+color: rgb(6, 6, 6);
+}
+.button-2{
+background-color: rgb(229, 240, 242);
+color: black;
+} 
+.card-7{
+font-family: Courier New;
 
-.button-7{
+}
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.error-feedback {
+  
+  color: rgb(232, 13, 13);
+}
+/*INTE TABELLEN utan todos.jsx*/
+.container{
+  font-family: Courier New;
+}
+.button-3{
   background-color: rgb(68, 168, 179);;
   color: rgb(253, 251, 251);
  } 
- .button-8{
-  background-color: rgb(222, 122, 59);;
+ .button-4{
+  background-color: rgb(59, 118, 222);;
   color: rgb(253, 251, 251);
 } 
+/*CREATE TODO*/
+
+.button-7{
+background-color: rgb(68, 168, 179);;
+color: rgb(253, 251, 251);
+} 
+.button-8{
+background-color: rgb(222, 122, 59);;
+color: rgb(253, 251, 251);
+} 
 .card-8{
-  background-color: rgb(232, 236, 237);
-  font-family: Courier New;
-  
+background-color: rgb(232, 236, 237);
+font-family: Courier New;
 }
 
 /*Update /Edit TODO*/
 
 .button-9{
-  background-color: rgb(68, 168, 179);;
-  color: rgb(253, 251, 251);
- } 
- .button-10{
-  background-color: rgb(222, 122, 59);;
-  color: rgb(253, 251, 251);
+background-color: rgb(68, 168, 179);;
+color: rgb(253, 251, 251);
+} 
+.button-10{
+background-color: rgb(222, 122, 59);;
+color: rgb(253, 251, 251);
 } 
 
 .card-9{
-  background-color: rgb(232, 236, 237);
-  font-family: Courier New;
+background-color: rgb(232, 236, 237);
+font-family: Courier New;
 }
 /*Delete TODO*/
 .button-11{
-  background-color: rgb(179, 68, 72);;
-  color: rgb(253, 251, 251);
- } 
- .button-12{
-  background-color: rgb(222, 122, 59);;
-  color: rgb(253, 251, 251);
+background-color: rgb(179, 68, 72);;
+color: rgb(253, 251, 251);
+} 
+.button-12{
+background-color: rgb(222, 122, 59);;
+color: rgb(253, 251, 251);
 } 
 .card-10{
-  background-color: rgb(232, 236, 237);
-  font-family: Courier New;
+background-color: rgb(232, 236, 237);
+font-family: Courier New;
 }
 
 .button-14{
-  background-color: rgb(91, 128, 164);;
-  color: rgb(253, 251, 251);
+background-color: rgb(91, 128, 164);;
+color: rgb(253, 251, 251);
+} 
+.button-15{
+background-color:rgb(167, 133, 229);;;
+color: rgb(253, 251, 251);
+} 
+.button-16{
+background-color: rgb(179, 68, 72);;
+color: rgb(253, 251, 251);
 } 

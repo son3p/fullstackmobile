@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,9 +9,10 @@ import '../css/Todo.css';
 
 import UserService from '../../services/UserService.js'
 
-import schema from './todoValidationSchema.js'
+import schema from './taskValidationSchema.js'
 
-const TodoCreate = () => {
+const TaskCreate = () => {
+    const {todoId} = useParams()
     const [responseMessage, setResponseMessage] = useState();
     const navigate = useNavigate();
 
@@ -28,12 +29,12 @@ const TodoCreate = () => {
     const doCreate = async (formData) => {
 
         try {
-            const response = await UserService.addTodoForUser(formData);
+            const response = await UserService.addTaskForUser(formData, todoId);
             // Show message and wait 3 second before going back
             setResponseMessage(response.data.message)
 
             setTimeout(() => {
-                navigate("/todos");
+                navigate(-1);
             }, 3000)
 
 
@@ -63,22 +64,22 @@ const TodoCreate = () => {
         <>
             <div className="col-md-12">
                 <div className="card card-container card-8 fw-bold ">
-                    <h1> New todo</h1>
+                    <h1> New task</h1>
                     <form onSubmit={handleSubmit(doCreate)} className=''>
                         <div className="form-group ">
-                            <label htmlFor="todo">Todo</label>
-                            <input type="text" {...register("todo")}  className="form-control bg-light border border-dark" />
-                            {errors?.todo && <label className="error-feedback">{errors.todo.message}</label>}
+                            <label htmlFor="task">Task</label>
+                            <input type="text" {...register("task")}  className="form-control bg-light border border-dark" />
+                            {errors?.task && <label className="error-feedback">{errors.task.message}</label>}
                         </div>
                         <div className="form-group ">
-                            <label htmlFor="category">Category</label>
-                            <input type="text" {...register("category")}  className="form-control bg-light border border-dark" />
-                            {errors?.category && <label className="error-feedback">{errors.category.message}</label>}
+                            <label htmlFor="priority">Priority</label>
+                            <input type="text" {...register("priority")}  className="form-control bg-light border border-dark" />
+                            {errors?.priority && <label className="error-feedback">{errors.priority.message}</label>}
                         </div>
                         <div className="form-group ">
-                            <label htmlFor="status">Status</label>
-                            <input type="text" {...register("status")}  className="form-control bg-light border border-dark" />
-                            {errors?.status && <label className="error-feedback">{errors.status.message}</label>}
+                            <label htmlFor="estimated_time">Estimated time</label>
+                            <input type="text" {...register("estimated_time")}  className="form-control bg-light border border-dark" />
+                            {errors?.estimated_time && <label className="error-feedback">{errors.estimated_time.message}</label>}
                         </div>
                         <p></p>
                         <div className="form-group d-flex justify-content-between">
@@ -102,4 +103,4 @@ const TodoCreate = () => {
     )
 }
 
-export default TodoCreate;
+export default TaskCreate;
