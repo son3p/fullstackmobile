@@ -1,5 +1,5 @@
 {
-  "appId": "com.hmyllari.app",
-  "appName": "fullstackmobileapp",
+  "appId": "todo.app",
+  "appName": "Todo",
   "webDir": "dist"
 }
