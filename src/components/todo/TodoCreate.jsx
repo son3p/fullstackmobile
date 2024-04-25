@@ -61,62 +61,43 @@ const TodoCreate = () => {
 
     return (
         <>
-         <div className="container">
-            <div className="row">
-                <div className="col-md-7 col-12">
-                    <div className="card rounded border border-dark  ">
-                        <div className="card-body">
-                        <h1 className='text-center'> Make a new todo</h1>
-                            <form onSubmit={handleSubmit(doCreate)} className='fw-bold'>
-                                
-                                    <label htmlFor="task" className="form-label">Task</label>
-                                    <input type="text" {...register("task")} className="form-control bg-light border border-dark" />
-                                    {errors?.task && <label className="error-feedback">{errors.task.message}</label>}
-                                
-                                
-                                    <label htmlFor="body" className="form-label">Body</label>
-                                    <input type="text" {...register("body")} className="form-control bg-light border border-dark" />
-                                    {errors?.body && <label className="error-feedback" >{errors.body.message}</label>}
-                                
-                               
-                                    <label htmlFor="estimated_time" className="form-label">Estimated time</label>
-                                    <input type="number" {...register("estimated_time")} className="form-control bg-light border border-dark" />
-                                    {errors?.estimated_time && <label className="error-feedback">{errors.estimated_time.message}</label>}
-
-                                <div className="form-group">
-                                     <label htmlFor="priority">Priority</label>
-                                     <input type="text" {...register("priority")}  className="form-control bg-light border border-dark" />
-                                     {errors?.priority && <label className="error-feedback">{errors.priority.message}</label>}
-                                </div>
-                                
-                                <p></p>
-                                <div className="form-group d-flex justify-content-between">
-                                    <button onClick={handleCancel} className="btn btn-dark border border-2 border-dark button-8 btn-block">
-                                        Cancel
-                                    </button>
-                                    <button className="btn btn-dark border border-2 border-dark button-7 btn-block" >
-                                        Create
-                                    </button>
-                                </div>
-                            </form>
-                            <p></p>
-                            {responseMessage && (
-                                <div className="alert alert-success" >
-                                    {responseMessage}
-                                </div>)
-                            }
+            <div className="col-md-12">
+                <div className="card card-container card-8 fw-bold ">
+                    <h1> New todo</h1>
+                    <form onSubmit={handleSubmit(doCreate)} className=''>
+                        <div className="form-group ">
+                            <label htmlFor="todo">Todo</label>
+                            <input type="text" {...register("todo")}  className="form-control bg-light border border-dark" />
+                            {errors?.todo && <label className="error-feedback">{errors.todo.message}</label>}
                         </div>
-                    </div>
+                        <div className="form-group ">
+                            <label htmlFor="category">Category</label>
+                            <input type="text" {...register("category")}  className="form-control bg-light border border-dark" />
+                            {errors?.category && <label className="error-feedback">{errors.category.message}</label>}
+                        </div>
+                        <div className="form-group ">
+                            <label htmlFor="status">Status</label>
+                            <input type="text" {...register("status")}  className="form-control bg-light border border-dark" />
+                            {errors?.status && <label className="error-feedback">{errors.status.message}</label>}
+                        </div>
+                        <p></p>
+                        <div className="form-group d-flex justify-content-between">
+                            <button onClick={handleCancel} className="btn btn-dark border border-2 border-dark button-8 btn-block">
+                                Cancel
+                            </button>
+                            <button className="btn btn-dark border border-2 border-dark button-7 btn-block" >
+                                Create
+                            </button>
+                        </div>
+                    </form>
+                    <p></p>
+                    {responseMessage && (
+                        <div className="alert alert-success" >
+                            {responseMessage}
+                        </div>)
+                    }
                 </div>
             </div>
-            </div>
-
-                           
-                   
-                 
-              
-               
-            
         </>
     )
 }
