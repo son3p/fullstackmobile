@@ -33,13 +33,13 @@ To sync your web code to the native project, follow these steps:
 npm run build
 npx cap sync
 
---
+---
 
 ## Running Your App
 You can run your app on a device or emulator using the following command:
 npx cap run android
 
---
+---
 
 ## Additional Setup Steps
 Here are some additional setup steps you may need to perform:
